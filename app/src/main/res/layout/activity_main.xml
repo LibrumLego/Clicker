@@ -8,8 +8,8 @@
     <!-- 상단 버튼 영역 -->
     <LinearLayout
         android:id="@+id/topBar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
         android:background="@drawable/topbar_gradient"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,8 +25,13 @@
             android:src="@drawable/add_circle"
             android:background="@android:color/transparent"
             android:scaleType="centerInside"
-            android:padding="12dp"
             android:contentDescription="추가 버튼" />
+
+        <!-- 가운데 구분선 -->
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="#CCFFFFFF" />
 
         <!-- 설정 버튼 -->
         <ImageButton
@@ -34,17 +39,18 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:elevation="4dp"
+            android:padding="12dp"
             android:src="@drawable/settings"
             android:background="@android:color/transparent"
             android:scaleType="centerInside"
-            android:padding="12dp"
             android:contentDescription="설정 버튼" />
     </LinearLayout>
 
     <!-- 하단 광고 바 -->
     <View
         android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="#DDDDDD"
         app:layout_constraintBottom_toBottomOf="parent"
