@@ -9,10 +9,12 @@
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:orientation="horizontal"
+        android:background="@drawable/topbar_gradient"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/topbar_gradient">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <!-- 추가 버튼 -->
         <ImageButton
@@ -21,8 +23,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/add_circle"
-            android:scaleType="centerInside"
             android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:padding="12dp"
             android:contentDescription="추가 버튼" />
 
         <!-- 설정 버튼 -->
@@ -32,18 +35,19 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/settings"
-            android:scaleType="centerInside"
             android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:padding="12dp"
             android:contentDescription="설정 버튼" />
-
     </LinearLayout>
 
-    <!-- 하단 바 -->
+    <!-- 하단 광고 바 -->
     <View
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:background="#DDDDDD"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
