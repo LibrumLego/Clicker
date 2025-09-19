@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.clicker"
+    namespace = "com.clicker"   // ✅ 패키지 통일
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.clicker"
+        applicationId = "com.clicker"   // ✅ 패키지 통일
         minSdk = 21
         targetSdk = 34
         versionCode = 1
@@ -36,7 +36,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
