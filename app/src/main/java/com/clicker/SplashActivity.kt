@@ -13,12 +13,10 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler(Looper.getMainLooper()).postDelayed({
-
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
 
             finish()
-
-        }, 2000) // 2000ms = 2초
+        }, 2000) // 3초 후에 MainActivity로 이동
     }
 }
