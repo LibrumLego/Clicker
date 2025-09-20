@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="@id/popupBg"
         app:layout_constraintStart_toStartOf="@id/popupBg"
         app:layout_constraintEnd_toEndOf="@id/popupBg"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="57dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp" />
 
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@id/editName"
         app:layout_constraintStart_toStartOf="@id/popupBg"
         app:layout_constraintEnd_toEndOf="@id/popupBg"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="58dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp">
 
