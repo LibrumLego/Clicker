@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    tools:context=".SettingsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- 설정창 텍스트 뷰 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="설정 창"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:padding="16dp" />
+
+        <!-- 정보 텍스트 뷰 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="정보"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:background="#E0E0E0" />
+
+        <!-- 버전 정보 버튼 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="버전 정보"
+            android:textColor="@color/black"
+            android:gravity="left|center_vertical"
+            android:padding="16dp"
+            android:textAllCaps="false"
+            app:cornerRadius="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+        <!-- 가로 구분선 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#D3D3D3" />
+
+        <!-- 오픈소스 라이선스 버튼 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_licenses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="오픈소스 라이선스"
+            android:textColor="@color/black"
+            android:gravity="left|center_vertical"
+            android:padding="16dp"
+            android:textAllCaps="false"
+            app:cornerRadius="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+        <!-- 소리 텍스트 뷰 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="소리"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:background="#E0E0E0" />
+
+        <!-- 배경음 버튼 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_sound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="배경음"
+            android:textColor="@color/black"
+            android:gravity="left|center_vertical"
+            android:padding="16dp"
+            android:textAllCaps="false"
+            app:cornerRadius="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+        <!-- 디자인 텍스트 뷰 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="디자인"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:background="#E0E0E0" />
+
+        <!-- 테마 버튼 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_theme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="테마 설정"
+            android:textColor="@color/black"
+            android:gravity="left|center_vertical"
+            android:padding="16dp"
+            android:textAllCaps="false"
+            app:cornerRadius="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+    </LinearLayout>
+
+    <!-- 하단 광고 바 -->
+    <View
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#DDDDDD"/>
+
+</LinearLayout>
