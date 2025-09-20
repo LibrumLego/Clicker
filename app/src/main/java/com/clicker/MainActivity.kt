@@ -3,15 +3,14 @@ package com.clicker
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
+import android.view.WindowManager
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    // ✅ 클릭 가능한 상태를 추적하는 플래그를 추가합니다.
     private var isClickable = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,36 +20,69 @@ class MainActivity : AppCompatActivity() {
         val addButton: ImageButton = findViewById(R.id.addButton)
         val settingsButton: ImageButton = findViewById(R.id.settingsButton)
 
+        // ➕ 추가 버튼 클릭 시 다이얼로그 열기
         addButton.setOnClickListener {
             val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_item, null)
+
             val editName = dialogView.findViewById<EditText>(R.id.editName)
-            val editColor = dialogView.findViewById<EditText>(R.id.editColor)
-            val btnConfirm = dialogView.findViewById<Button>(R.id.btnConfirm)
+
+            // ✅ 버튼은 PNG 이미지 → 클릭 영역만 View
+            val btnConfirmArea = dialogView.findViewById<View>(R.id.btnConfirmArea)
+
+            // 색상 동그라미 뷰
+            val colorRed   = dialogView.findViewById<ImageView>(R.id.colorRed)
+            val colorBlue  = dialogView.findViewById<ImageView>(R.id.colorBlue)
+            val colorGreen = dialogView.findViewById<ImageView>(R.id.colorGreen)
+            val colorYellow= dialogView.findViewById<ImageView>(R.id.colorYellow)
+            val colorPurple= dialogView.findViewById<ImageView>(R.id.colorPurple)
+
+            val colorViews = listOf(colorRed, colorBlue, colorGreen, colorYellow, colorPurple)
+            var selectedColor: String? = null
+
+            // 색상 클릭 이벤트 처리
+            colorViews.forEach { v ->
+                v.setOnClickListener {
+                    colorViews.forEach { it.isSelected = false }
+                    v.isSelected = true
+                    selectedColor = when (v.id) {
+                        R.id.colorRed    -> "#F44336"
+                        R.id.colorBlue   -> "#2196F3"
+                        R.id.colorGreen  -> "#4CAF50"
+                        R.id.colorYellow -> "#FFEB3B"
+                        R.id.colorPurple -> "#9C27B0"
+                        else -> null
+                    }
+                }
+            }
+
             val dialog = AlertDialog.Builder(this)
                 .setView(dialogView)
                 .create()
-            btnConfirm.setOnClickListener {
+
+            // ✅ 뒷배경 어두워짐 제거
+            dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+
+            // 확인 버튼 클릭 (투명 View에 이벤트 연결)
+            btnConfirmArea.setOnClickListener {
                 val name = editName.text.toString()
-                val color = editColor.text.toString()
+                val color = selectedColor ?: ""
+                Toast.makeText(this, "이름: $name / 색상: $color", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
+
             dialog.show()
         }
 
+        // ⚙️ 설정 버튼 클릭 시 이동
         settingsButton.setOnClickListener {
-            // ✅ isClickable 플래그를 확인하여 여러 번 클릭되는 것을 방지합니다.
             if (isClickable) {
-                // 한 번 클릭했으니 바로 플래그를 false로 바꿉니다.
                 isClickable = false
-
-                // SettingsActivity로 이동하는 Intent를 생성하고 시작합니다.
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(this, SettingsActivity::class.java))
             }
         }
     }
 
-    // ✅ 사용자가 MainActivity로 돌아왔을 때 플래그를 다시 true로 변경합니다.
     override fun onResume() {
         super.onResume()
         isClickable = true
