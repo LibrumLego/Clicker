@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    // ✅ 클릭 가능한 상태를 추적하는 플래그를 추가합니다.
     private var isClickable = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
