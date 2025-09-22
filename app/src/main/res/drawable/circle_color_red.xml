@@ -3,14 +3,23 @@
     <!-- 선택됨 -->
     <item android:state_selected="true">
         <shape android:shape="oval">
-            <solid android:color="#FF0000"/>
+            <gradient
+                android:type="linear"
+                android:angle="0"
+                android:startColor="#8B5CF6"
+                android:endColor="#51CDE3"/>
             <stroke android:width="4dp" android:color="#000000"/> <!-- 검은 테두리 -->
         </shape>
     </item>
+
     <!-- 기본 -->
     <item>
         <shape android:shape="oval">
-            <solid android:color="#FF0000"/>
+            <gradient
+                android:type="linear"
+                android:angle="0"
+                android:startColor="#8B5CF6"
+                android:endColor="#51CDE3"/>
         </shape>
     </item>
 </selector>
