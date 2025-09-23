@@ -48,6 +48,18 @@
             android:contentDescription="설정 버튼" />
     </LinearLayout>
 
+    <!-- 아이템이 추가될 컨테이너 -->
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <!-- 하단 광고 바 -->
     <View
         android:id="@+id/bottomBar"

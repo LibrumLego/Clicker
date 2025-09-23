@@ -54,35 +54,35 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_margin="6dp"
-            android:src="@drawable/circle_color_red" />
+            android:src="@drawable/circle_color_purple_blue" />
 
         <ImageView
             android:id="@+id/colorBlue"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_margin="6dp"
-            android:src="@drawable/circle_color_blue" />
+            android:src="@drawable/circle_color_pink_yellow" />
 
         <ImageView
             android:id="@+id/colorGreen"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_margin="6dp"
-            android:src="@drawable/circle_color_green" />
+            android:src="@drawable/circle_color_blue_mint" />
 
         <ImageView
             android:id="@+id/colorYellow"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_margin="6dp"
-            android:src="@drawable/circle_color_yellow" />
+            android:src="@drawable/circle_color_emerald_gold" />
 
         <ImageView
             android:id="@+id/colorPurple"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_margin="6dp"
-            android:src="@drawable/circle_color_purple" />
+            android:src="@drawable/circle_color_purple_pink" />
     </LinearLayout>
 
     <!-- 확인 버튼 (투명 클릭 영역) -->
