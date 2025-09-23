@@ -8,13 +8,14 @@
     android:background="@android:color/white"
     tools:context=".SettingsActivity">
 
+    <!-- 메인 컨텐츠 영역 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <!-- 설정창 텍스트 뷰 -->
+        <!-- 상단 타이틀 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,7 +25,7 @@
             android:textColor="@android:color/black"
             android:padding="16dp" />
 
-        <!-- 정보 텍스트 뷰 -->
+        <!-- 정보 섹션 헤더 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,12 +36,12 @@
             android:paddingHorizontal="16dp"
             android:background="#E0E0E0" />
 
-        <!-- 버전 정보 버튼 -->
+        <!-- '사용방법' 버튼 -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_version"
+            android:id="@+id/button_how_to_use"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="버전 정보"
+            android:text="사용방법"
             android:textColor="@color/black"
             android:gravity="left|center_vertical"
             android:padding="16dp"
@@ -48,18 +49,18 @@
             app:cornerRadius="0dp"
             style="@style/Widget.MaterialComponents.Button.TextButton" />
 
-        <!-- 가로 구분선 -->
+        <!-- 구분선 -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#D3D3D3" />
 
-        <!-- 오픈소스 라이선스 버튼 -->
+        <!-- '문의사항' 버튼 -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_licenses"
+            android:id="@+id/button_inquiries"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="오픈소스 라이선스"
+            android:text="문의사항"
             android:textColor="@color/black"
             android:gravity="left|center_vertical"
             android:padding="16dp"
@@ -67,7 +68,26 @@
             app:cornerRadius="0dp"
             style="@style/Widget.MaterialComponents.Button.TextButton" />
 
-        <!-- 소리 텍스트 뷰 -->
+        <!-- 구분선 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#D3D3D3" />
+
+        <!-- '리뷰' 버튼 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="리뷰"
+            android:textColor="@color/black"
+            android:gravity="left|center_vertical"
+            android:padding="16dp"
+            android:textAllCaps="false"
+            app:cornerRadius="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+        <!-- 소리 섹션 헤더 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,7 +98,7 @@
             android:paddingHorizontal="16dp"
             android:background="#E0E0E0" />
 
-        <!-- 배경음 버튼 -->
+        <!-- '배경음' 버튼 -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_sound"
             android:layout_width="match_parent"
@@ -91,7 +111,7 @@
             app:cornerRadius="0dp"
             style="@style/Widget.MaterialComponents.Button.TextButton" />
 
-        <!-- 디자인 텍스트 뷰 -->
+        <!-- 디자인 섹션 헤더 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,7 +122,7 @@
             android:paddingHorizontal="16dp"
             android:background="#E0E0E0" />
 
-        <!-- 테마 버튼 -->
+        <!-- '테마 설정' 버튼 -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_theme"
             android:layout_width="match_parent"
@@ -115,7 +135,61 @@
             app:cornerRadius="0dp"
             style="@style/Widget.MaterialComponents.Button.TextButton" />
 
+        <!-- 구분선 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#D3D3D3" />
+
+        <!-- '글자 정렬' 버튼 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_text_alignment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="글자 정렬"
+            android:textColor="@color/black"
+            android:gravity="left|center_vertical"
+            android:padding="16dp"
+            android:textAllCaps="false"
+            app:cornerRadius="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+        <!-- 기타 섹션 헤더 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="기타"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:background="#E0E0E0" />
+
+        <!-- '광고 제거' 버튼 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_remove_ads"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="광고 제거"
+            android:textColor="@color/black"
+            android:gravity="left|center_vertical"
+            android:padding="16dp"
+            android:textAllCaps="false"
+            app:cornerRadius="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
     </LinearLayout>
+
+    <!-- 앱 버전 표시 -->
+    <TextView
+        android:id="@+id/version_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:text="0.0.1"
+        android:textSize="12sp"
+        android:textColor="#A9A9A9" />
 
     <!-- 하단 광고 바 -->
     <View
