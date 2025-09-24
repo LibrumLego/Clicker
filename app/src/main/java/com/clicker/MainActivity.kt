@@ -6,13 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.clicker.R   // ✅ android.R 말고 프로젝트 R을 사용
+import com.clicker.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             val colorPurple= dialogView.findViewById<ImageView>(R.id.colorPurple)
 
             val colorViews = listOf(colorRed, colorBlue, colorGreen, colorYellow, colorPurple)
-            var selectedColorRes: Int = R.drawable.bg_button_purple_blue // 기본값
+            var selectedColorRes: Int? = null // 기본값을 null로 설정 (선택 안 한 경우 체크용)
 
             // 색상 선택 이벤트
             colorViews.forEach { v ->
@@ -51,11 +47,11 @@ class MainActivity : AppCompatActivity() {
                     v.isSelected = true
                     selectedColorRes = when (v.id) {
                         R.id.colorRed    -> R.drawable.bg_button_purple_blue
-                        R.id.colorBlue   -> R.drawable.bg_button_purple_pink
-                        R.id.colorGreen  -> R.drawable.bg_button_pink_yellow
-                        R.id.colorYellow -> R.drawable.bg_button_blue_mint
-                        R.id.colorPurple -> R.drawable.bg_button_emerald_gold
-                        else -> R.drawable.bg_button_purple_blue
+                        R.id.colorBlue   -> R.drawable.bg_button_pink_yellow
+                        R.id.colorGreen  -> R.drawable.bg_button_blue_mint
+                        R.id.colorYellow -> R.drawable.bg_button_emerald_gold
+                        R.id.colorPurple -> R.drawable.bg_button_purple_pink
+                        else -> null
                     }
                 }
             }
@@ -68,8 +64,22 @@ class MainActivity : AppCompatActivity() {
             dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
 
             btnConfirm.setOnClickListener {
-                val name = editName.text.toString().ifEmpty { "이름없음" }
-                addItem(name, selectedColorRes)
+                val name = editName.text.toString().trim()
+
+                // 이름이 비어있으면
+                if (name.isEmpty()) {
+                    Toast.makeText(this, "이름을 입력해주세요", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                // 색상 선택 안 했으면
+                if (selectedColorRes == null) {
+                    Toast.makeText(this, "색상을 골라주세요", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                // 둘 다 통과했을 때만 생성
+                addItem(name, selectedColorRes!!)
                 dialog.dismiss()
             }
 
