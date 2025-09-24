@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             val colorPurple= dialogView.findViewById<ImageView>(R.id.colorPurple)
 
             val colorViews = listOf(colorRed, colorBlue, colorGreen, colorYellow, colorPurple)
-            var selectedColorRes: Int? = null // 기본값을 null로 설정 (선택 안 한 경우 체크용)
+            var selectedColorRes: Int? = null // 기본값: 선택 안 한 경우 체크용
 
             // 색상 선택 이벤트
             colorViews.forEach { v ->
@@ -112,6 +112,20 @@ class MainActivity : AppCompatActivity() {
         itemName.text = name
         btnMinus.setBackgroundResource(colorRes)
         btnPlus.setBackgroundResource(colorRes)
+
+        // ✅ 버튼 배경(GradientDrawable) 가져오기
+        val buttonDrawable = resources.getDrawable(colorRes, null).mutate()
+
+        // ✅ 숫자칸 안쪽 흰 배경 drawable
+        val innerDrawable = resources.getDrawable(R.drawable.bg_edittext_border, null).mutate()
+
+        // ✅ LayerDrawable: [0] 버튼 그라데이션(바깥 테두리), [1] 안쪽 흰 배경
+        val layerDrawable = android.graphics.drawable.LayerDrawable(arrayOf(buttonDrawable, innerDrawable))
+        layerDrawable.setLayerInset(0, 0, 0, 0, 0)   // 바깥 레이어 (그라데이션)
+        layerDrawable.setLayerInset(1, 4, 4, 4, 4)   // 안쪽 레이어 (흰색)
+
+        // 숫자칸 배경으로 적용
+        itemValue.background = layerDrawable
 
         // ➖ 버튼 클릭
         btnMinus.setOnClickListener {
