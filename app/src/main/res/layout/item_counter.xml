@@ -1,4 +1,4 @@
-<!-- res/layout/item_counter.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -8,7 +8,6 @@
     android:padding="12dp"
     android:background="#FFFFFF">
 
-    <!-- 이름 (상단, 가운데 정렬) -->
     <TextView
         android:id="@+id/itemName"
         android:layout_width="match_parent"
@@ -19,14 +18,11 @@
         android:gravity="center"
         android:layout_marginBottom="12dp"/>
 
-    <!-- 버튼과 값 (아래 가운데 정렬) -->
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center">
 
-        <!-- - 버튼 -->
         <TextView
             android:id="@+id/btnMinus"
             android:layout_width="80dp"
@@ -37,29 +33,31 @@
             android:textColor="@android:color/white"
             android:background="@drawable/bg_button_gradient_left"/>
 
-        <!-- 값 입력 -->
-        <EditText
+        <TextView
             android:id="@+id/itemValue"
             android:layout_width="120dp"
             android:layout_height="80dp"
+            android:layout_toEndOf="@id/btnMinus"
+            android:layout_marginStart="16dp"
             android:gravity="center"
-            android:inputType="number"
             android:text="0"
             android:textSize="26sp"
             android:textColor="#000000"
             android:background="@drawable/bg_edittext_border"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"/>
+            android:clickable="true"
+            android:focusable="true"/>
 
-        <!-- + 버튼 -->
         <TextView
             android:id="@+id/btnPlus"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_toEndOf="@id/itemValue"
+            android:layout_marginStart="16dp"
             android:gravity="center"
             android:text="+"
             android:textSize="32sp"
             android:textColor="@android:color/white"
             android:background="@drawable/bg_button_gradient_right"/>
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
+

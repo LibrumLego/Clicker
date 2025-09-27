@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#FFFFFF"
+    android:padding="32dp">
+
+    <TextView
+        android:id="@+id/zoomNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="80sp"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:layout_marginBottom="32dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/btnMinus"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="-"
+            android:textColor="@android:color/white"
+            android:textSize="32sp"
+            android:gravity="center"
+            android:background="@drawable/bg_button_gradient_left"/>
+
+        <TextView
+            android:id="@+id/btnPlus"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="+"
+            android:textColor="@android:color/white"
+            android:textSize="32sp"
+            android:gravity="center"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/bg_button_gradient_right"/>
+    </LinearLayout>
+</LinearLayout>
+
+
+
