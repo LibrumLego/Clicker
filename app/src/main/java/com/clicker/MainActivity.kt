@@ -12,6 +12,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var container: LinearLayout
     private lateinit var viewModel: CounterViewModel
 
+    private val MAX_ITEMS = 10  // ✅ 최대 10개 제한
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         // ViewModel 가져오기
         viewModel = (application as MyApplication).counterViewModel
 
-        // LiveData 관찰
+        // LiveData 관찰 -> 리스트가 바뀔 때마다 UI 갱신
         viewModel.counters.observe(this) { list ->
             container.removeAllViews()
             list.forEachIndexed { index, counterItem ->
@@ -32,7 +34,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         // ➕ 아이템 추가 버튼
-        addButton.setOnClickListener { showAddItemDialog() }
+        addButton.setOnClickListener {
+            if (viewModel.counters.value?.size ?: 0 >= MAX_ITEMS) {
+                Toast.makeText(this, "최대 ${MAX_ITEMS}개까지만 추가 가능합니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                showAddItemDialog()
+            }
+        }
 
         // ⚙️ 설정 버튼
         settingsButton.setOnClickListener {
@@ -40,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // ✅ 아이템 추가 다이얼로그
     private fun showAddItemDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_item, null)
 
@@ -89,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // ✅ 최종: 아이템 뷰 추가
+    // ✅ 아이템 뷰 추가
     private fun addCounterItemToLayout(item: CounterItem, index: Int) {
         val itemView = LayoutInflater.from(this).inflate(R.layout.item_counter, container, false)
 
@@ -104,12 +113,12 @@ class MainActivity : AppCompatActivity() {
         btnMinus.setBackgroundResource(item.colorRes)
         btnPlus.setBackgroundResource(item.colorRes)
 
-        // 중앙 숫자 배경: LayerDrawable (외곽 버튼 + 안쪽 흰색)
+        // 중앙 숫자 배경 (외곽 컬러 + 안쪽 흰색 border)
         val outerDrawable = resources.getDrawable(item.colorRes, theme).mutate()
         val innerDrawable = resources.getDrawable(R.drawable.bg_edittext_border, theme).mutate()
         val layerDrawable = android.graphics.drawable.LayerDrawable(arrayOf(outerDrawable, innerDrawable))
         layerDrawable.setLayerInset(0, 0, 0, 0, 0) // 외곽
-        layerDrawable.setLayerInset(1, 4, 4, 4, 4) // 안쪽 흰색
+        layerDrawable.setLayerInset(1, 4, 4, 4, 4) // 안쪽
         itemValue.background = layerDrawable
 
         // 현재 값 표시
@@ -125,7 +134,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.updateValue(index, item.value + 1)
         }
 
-        // 중앙 숫자 클릭 시 NumberZoomActivity로 이동
+        // 중앙 숫자 클릭 -> 확대 액티비티 이동
         itemValue.setOnClickListener {
             val intent = Intent(this, NumberZoomActivity::class.java)
             intent.putExtra("index", index)
@@ -136,4 +145,3 @@ class MainActivity : AppCompatActivity() {
         container.addView(itemView)
     }
 }
-
