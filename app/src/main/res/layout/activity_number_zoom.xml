@@ -1,51 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:background="#FFFFFF"
-    android:padding="32dp">
+    tools:context=".NumberZoomActivity">
+
+    <LinearLayout
+        android:id="@+id/top_icon_bar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:src="@drawable/arrow_back"
+            android:contentDescription="뒤로가기" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/btnReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:src="@drawable/redo"
+            android:contentDescription="숫자 초기화" />
+
+        <ImageButton
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:src="@drawable/edit"
+            android:contentDescription="설정 팝업" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/zoomNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="80sp"
-        android:textColor="#000000"
+        android:layout_marginBottom="130dp"
         android:gravity="center"
-        android:layout_marginBottom="32dp"/>
+        android:text="20000"
+        android:textColor="#000000"
+        android:textSize="80sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnMinus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_icon_bar"
+        app:layout_constraintVertical_bias="0.700"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/btnMinus"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="110dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/bg_button_gradient_left"
+        android:gravity="center"
+        android:text="-"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_custom_buttons"
+        app:layout_constraintEnd_toStartOf="@+id/btnPlus"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/zoomNumber" />
+
+    <TextView
+        android:id="@+id/btnPlus"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_button_gradient_right"
+        android:gravity="center"
+        android:text="+"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="@id/btnMinus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnMinus"
+        app:layout_constraintTop_toTopOf="@id/btnMinus"
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/bottom_custom_buttons"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_ad_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/btnMinus"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:text="-"
-            android:textColor="@android:color/white"
-            android:textSize="32sp"
-            android:gravity="center"
-            android:background="@drawable/bg_button_gradient_left"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="100"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:background="@drawable/bg_custom_button_outline"
+            app:backgroundTint="@null"
+            android:layout_marginEnd="8dp"
+            app:elevation="0dp" />
 
-        <TextView
-            android:id="@+id/btnPlus"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:text="+"
-            android:textColor="@android:color/white"
-            android:textSize="32sp"
-            android:gravity="center"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/bg_button_gradient_right"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="100"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:background="@drawable/bg_custom_button_outline"
+            app:backgroundTint="@null"
+            android:layout_marginEnd="8dp"
+            app:elevation="0dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="100"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:background="@drawable/bg_custom_button_outline"
+            app:backgroundTint="@null"
+            android:layout_marginEnd="8dp"
+            app:elevation="0dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="100"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:background="@drawable/bg_custom_button_outline"
+            app:backgroundTint="@null"
+            app:elevation="0dp" />
     </LinearLayout>
-</LinearLayout>
+
+    <View
+        android:id="@+id/bottom_ad_bar"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="#DDDDDD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
