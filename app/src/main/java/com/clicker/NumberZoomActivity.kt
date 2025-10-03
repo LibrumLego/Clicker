@@ -18,7 +18,7 @@ class NumberZoomActivity : AppCompatActivity() {
         val zoomNumber = findViewById<TextView>(R.id.zoomNumber)
         val btnMinus = findViewById<TextView>(R.id.btnMinus)
         val btnPlus = findViewById<TextView>(R.id.btnPlus)
-        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        val btnDelete = findViewById<ImageButton>(R.id.btnBack) // 삭제 버튼으로 사용
         val btnReset = findViewById<ImageButton>(R.id.btnReset)
 
         // intent에서 index 가져오기
@@ -33,6 +33,9 @@ class NumberZoomActivity : AppCompatActivity() {
 
         // ViewModel 관찰
         viewModel.counters.observe(this) { list ->
+            // 삭제 후 index 유효성 체크
+            if (index !in list.indices) return@observe
+
             val item = list[index]
             zoomNumber.text = item.value.toString()
             btnMinus.setBackgroundResource(item.colorRes)
@@ -41,13 +44,13 @@ class NumberZoomActivity : AppCompatActivity() {
 
         // 숫자 감소
         btnMinus.setOnClickListener {
-            val current = viewModel.counters.value?.get(index)?.value ?: 0
+            val current = viewModel.counters.value?.getOrNull(index)?.value ?: 0
             if (current > 0) viewModel.updateValue(index, current - 1)
         }
 
         // 숫자 증가
         btnPlus.setOnClickListener {
-            val current = viewModel.counters.value?.get(index)?.value ?: 0
+            val current = viewModel.counters.value?.getOrNull(index)?.value ?: 0
             viewModel.updateValue(index, current + 1)
         }
 
@@ -56,10 +59,10 @@ class NumberZoomActivity : AppCompatActivity() {
             viewModel.updateValue(index, 0)
         }
 
-        // 뒤로가기 버튼
-        btnBack.setOnClickListener {
+        // 삭제 버튼 클릭 -> 카운터 삭제 후 종료
+        btnDelete.setOnClickListener {
+            viewModel.removeCounter(index)
             finish()
-            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
         }
 
         // 숫자 클릭 시 종료 (fade 효과)
@@ -69,6 +72,8 @@ class NumberZoomActivity : AppCompatActivity() {
         }
     }
 }
+
+
 
 
 

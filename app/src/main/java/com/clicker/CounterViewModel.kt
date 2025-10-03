@@ -25,8 +25,15 @@ class CounterViewModel : ViewModel() {
         _counters.notifyObserver()
     }
 
+    fun removeCounter(index: Int) {
+        _counters.value?.removeAt(index)
+        _counters.notifyObserver()
+    }
+
+
     private fun <T> MutableLiveData<T>.notifyObserver() {
         this.value = this.value
     }
 }
+
 

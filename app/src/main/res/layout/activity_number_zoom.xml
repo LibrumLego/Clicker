@@ -25,8 +25,8 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:padding="8dp"
-            android:src="@drawable/arrow_back"
-            android:contentDescription="뒤로가기" />
+            android:src="@drawable/delete"
+            android:contentDescription="삭제하기" />
 
         <View
             android:layout_width="0dp"
