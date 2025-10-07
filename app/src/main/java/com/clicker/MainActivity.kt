@@ -6,13 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import android.graphics.drawable.LayerDrawable
+import android.util.Log
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var container: LinearLayout
     private lateinit var viewModel: CounterViewModel
 
-    private val MAX_ITEMS = 10  // ✅ 최대 10개 제한
+    private val MAX_ITEMS = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.counters.observe(this) { list ->
             container.removeAllViews()
             list.forEachIndexed { index, counterItem ->
+                // index는 목록 순서를 위한 용도로만 사용
                 addCounterItemToLayout(counterItem, index)
             }
         }
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // ✅ 아이템 추가 다이얼로그
+    // 아이템 추가 다이얼로그 (로직은 이전과 동일)
     private fun showAddItemDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_item, null)
 
@@ -93,12 +96,14 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            viewModel.addCounter(CounterItem(name, 0, selectedColorRes!!))
+            viewModel.addCounter(CounterItem(name = name, colorRes = selectedColorRes!!))
             dialog.dismiss()
         }
     }
 
-    // ✅ 아이템 뷰 추가
+    // ----------------------------------------------------------------------------------
+    // ✅ 아이템 뷰 추가 (ID 기반 업데이트 및 설정값 반영 로직)
+    // ----------------------------------------------------------------------------------
     private fun addCounterItemToLayout(item: CounterItem, index: Int) {
         val itemView = LayoutInflater.from(this).inflate(R.layout.item_counter, container, false)
 
@@ -113,31 +118,35 @@ class MainActivity : AppCompatActivity() {
         btnMinus.setBackgroundResource(item.colorRes)
         btnPlus.setBackgroundResource(item.colorRes)
 
-        // 중앙 숫자 배경 (외곽 컬러 + 안쪽 흰색 border)
+        // 중앙 숫자 배경 (LayerDrawable 로직)
         val outerDrawable = resources.getDrawable(item.colorRes, theme).mutate()
         val innerDrawable = resources.getDrawable(R.drawable.bg_edittext_border, theme).mutate()
-        val layerDrawable = android.graphics.drawable.LayerDrawable(arrayOf(outerDrawable, innerDrawable))
-        layerDrawable.setLayerInset(0, 0, 0, 0, 0) // 외곽
-        layerDrawable.setLayerInset(1, 4, 4, 4, 4) // 안쪽
+        val layerDrawable = LayerDrawable(arrayOf(outerDrawable, innerDrawable))
+        layerDrawable.setLayerInset(0, 0, 0, 0, 0)
+        layerDrawable.setLayerInset(1, 4, 4, 4, 4)
         itemValue.background = layerDrawable
 
         // 현재 값 표시
         itemValue.text = item.value.toString()
 
-        // ➖ 버튼 클릭
+        // ➖ 버튼 클릭 (ID 기반 호출 및 decrementStep 반영)
         btnMinus.setOnClickListener {
-            if (item.value > 0) viewModel.updateValue(index, item.value - 1)
+            // item.decrementStep에 저장된 값만큼 감소
+            val newValue = item.value - item.decrementStep
+            viewModel.updateValueById(item.id, newValue) // 🚨 ID 기반 업데이트
         }
 
-        // ➕ 버튼 클릭
+        // ➕ 버튼 클릭 (ID 기반 호출 및 incrementStep 반영)
         btnPlus.setOnClickListener {
-            viewModel.updateValue(index, item.value + 1)
+            // item.incrementStep에 저장된 값만큼 증가
+            val newValue = item.value + item.incrementStep
+            viewModel.updateValueById(item.id, newValue) // 🚨 ID 기반 업데이트
         }
 
-        // 중앙 숫자 클릭 -> 확대 액티비티 이동
+        // 중앙 숫자 클릭 -> 확대 액티비티 이동 (5단계에서 ID 기반으로 변경 완료)
         itemValue.setOnClickListener {
             val intent = Intent(this, NumberZoomActivity::class.java)
-            intent.putExtra("index", index)
+            intent.putExtra("itemId", item.id) // 🚨 고유 ID 전달
             startActivity(intent)
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }

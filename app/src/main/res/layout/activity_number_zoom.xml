@@ -113,7 +113,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.button.MaterialButton
-            android:layout_width="0dp"
+            android:id="@+id/btnCustom1"  android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="100"
@@ -125,7 +125,7 @@
             app:elevation="0dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:layout_width="0dp"
+            android:id="@+id/btnCustom2"  android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="100"
@@ -137,7 +137,7 @@
             app:elevation="0dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:layout_width="0dp"
+            android:id="@+id/btnCustom3"  android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="100"
@@ -149,11 +149,11 @@
             app:elevation="0dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:layout_width="0dp"
+            android:id="@+id/btnCustom4"  android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="100"
-            android:textSize="14sp"
+            android.textSize="14sp"
             android:textColor="#000000"
             android:background="@drawable/bg_custom_button_outline"
             app:backgroundTint="@null"
