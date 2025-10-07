@@ -1,18 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-
-    <!-- ✅ 다크 모드 테마 -->
+    <!-- Base application theme. -->
     <style name="Theme.Clicker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- 브랜드 컬러 -->
+    <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/black</item>
-
+        <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
-
-        <!-- ✅ 상태바 완전 투명 -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
     </style>
-
 </resources>
