@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.clicker">
+
+    <!-- ✅ 진동 권한 추가 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".MyApplication"
@@ -42,9 +46,8 @@
         <!-- 숫자 확대/축소 액티비티 -->
         <activity
             android:name=".NumberZoomActivity"
-            android:theme="@style/Theme.Clicker"/>
+            android:theme="@style/Theme.Clicker" />
         <!-- MaterialButton 호환 테마 적용 -->
 
     </application>
-
 </manifest>

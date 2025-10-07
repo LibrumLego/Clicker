@@ -1,7 +1,11 @@
 package com.clicker
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
@@ -22,10 +26,10 @@ class MainActivity : AppCompatActivity() {
         val addButton: ImageButton = findViewById(R.id.addButton)
         val settingsButton: ImageButton = findViewById(R.id.settingsButton)
 
-        // ViewModel 가져오기
+        // ✅ ViewModel 가져오기
         viewModel = (application as MyApplication).counterViewModel
 
-        // LiveData 관찰 -> 리스트가 바뀔 때마다 UI 갱신
+        // ✅ LiveData 관찰 → 리스트가 바뀔 때마다 UI 갱신
         viewModel.counters.observe(this) { list ->
             container.removeAllViews()
             list.forEachIndexed { index, counterItem ->
@@ -63,6 +67,7 @@ class MainActivity : AppCompatActivity() {
         val colorViews = listOf(colorRed, colorBlue, colorGreen, colorYellow, colorPurple)
         var selectedColorRes: Int? = null
 
+        // ✅ 색상 선택 시 UI 업데이트
         colorViews.forEach { v ->
             v.setOnClickListener {
                 colorViews.forEach { it.isSelected = false }
@@ -82,6 +87,7 @@ class MainActivity : AppCompatActivity() {
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.show()
 
+        // ✅ 확인 버튼
         btnConfirm.setOnClickListener {
             val name = editName.text.toString().trim()
             if (name.isEmpty()) {
@@ -117,8 +123,8 @@ class MainActivity : AppCompatActivity() {
         val outerDrawable = resources.getDrawable(item.colorRes, theme).mutate()
         val innerDrawable = resources.getDrawable(R.drawable.bg_edittext_border, theme).mutate()
         val layerDrawable = android.graphics.drawable.LayerDrawable(arrayOf(outerDrawable, innerDrawable))
-        layerDrawable.setLayerInset(0, 0, 0, 0, 0) // 외곽
-        layerDrawable.setLayerInset(1, 4, 4, 4, 4) // 안쪽
+        layerDrawable.setLayerInset(0, 0, 0, 0, 0)
+        layerDrawable.setLayerInset(1, 4, 4, 4, 4)
         itemValue.background = layerDrawable
 
         // 현재 값 표시
@@ -126,12 +132,16 @@ class MainActivity : AppCompatActivity() {
 
         // ➖ 버튼 클릭
         btnMinus.setOnClickListener {
-            if (item.value > 0) viewModel.updateValue(index, item.value - 1)
+            if (item.value > 0) {
+                viewModel.updateValue(index, item.value - 1)
+                triggerVibration() // ✅ 진동
+            }
         }
 
         // ➕ 버튼 클릭
         btnPlus.setOnClickListener {
             viewModel.updateValue(index, item.value + 1)
+            triggerVibration() // ✅ 진동
         }
 
         // 중앙 숫자 클릭 -> 확대 액티비티 이동
@@ -143,5 +153,30 @@ class MainActivity : AppCompatActivity() {
         }
 
         container.addView(itemView)
+    }
+
+    // ✅ 진동 함수 (설정값 확인 후 진동 발생)
+    private fun triggerVibration() {
+        val prefs = getSharedPreferences("AppSettings", MODE_PRIVATE)
+        val vibrationEnabled = prefs.getBoolean("vibration_enabled", true)
+
+        if (!vibrationEnabled) return  // 진동 OFF면 종료
+
+        // Vibrator 객체 가져오기 (Android 12 이상 / 이하 호환)
+        val vibrator = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            val vm = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            vm.defaultVibrator
+        } else {
+            @Suppress("DEPRECATION")
+            getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        }
+
+        // 진동 실행 (짧고 부드럽게)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(40, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(40)
+        }
     }
 }
