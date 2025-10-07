@@ -1,27 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- ✅ Base application theme -->
+    <!-- ✅ 라이트 모드 테마 -->
     <style name="Theme.Clicker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color -->
+        <!-- 브랜드 컬러 -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
 
-        <!-- Secondary brand color -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
 
-        <!-- Status bar color -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- ✅ 상태바 완전 투명 -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <!-- ✅ 명시적 NoActionBar 테마 (확장용) -->
-    <style name="Theme.Clicker.NoActionBar" parent="Theme.Clicker">
-        <!-- ActionBar가 완전히 제거된 버전 -->
-    </style>
+    <!-- ✅ 명시적 NoActionBar 테마 -->
+    <style name="Theme.Clicker.NoActionBar" parent="Theme.Clicker" />
 
-    <!-- ✅ Splash Screen theme -->
+    <!-- ✅ Splash Screen -->
     <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@drawable/splash_activity</item>
