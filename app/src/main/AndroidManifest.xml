@@ -15,10 +15,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Clicker"
+        android:theme="@style/Theme.Clicker.NoActionBar"
         tools:targetApi="31">
 
-        <!-- Splash 화면 -->
+        <!-- ✅ Splash 화면 -->
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashScreen"
@@ -29,25 +29,24 @@
             </intent-filter>
         </activity>
 
-        <!-- 메인 액티비티 -->
+        <!-- ✅ 메인 액티비티 -->
         <activity
             android:name=".MainActivity"
             android:exported="true" />
 
-        <!-- 설정 액티비티 -->
+        <!-- ✅ 설정 액티비티 -->
         <activity
             android:name=".SettingsActivity"
             android:exported="false" />
 
-        <!-- 사용법 액티비티 -->
+        <!-- ✅ 사용법 액티비티 -->
         <activity
             android:name=".HowToUseActivity" />
 
-        <!-- 숫자 확대/축소 액티비티 -->
+        <!-- ✅ 숫자 확대/축소 액티비티 -->
         <activity
             android:name=".NumberZoomActivity"
-            android:theme="@style/Theme.Clicker" />
-        <!-- MaterialButton 호환 테마 적용 -->
+            android:theme="@style/Theme.Clicker.NoActionBar" />
 
     </application>
 </manifest>
