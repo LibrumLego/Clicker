@@ -46,6 +46,7 @@
         <!-- ✅ 숫자 확대/축소 액티비티 -->
         <activity
             android:name=".NumberZoomActivity"
+            android:exported="false"
             android:theme="@style/Theme.Clicker.NoActionBar" />
 
     </application>
