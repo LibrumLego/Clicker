@@ -37,7 +37,6 @@ class NumberZoomActivity : AppCompatActivity() {
         val btnCustom4 = findViewById<MaterialButton>(R.id.btnCustom4)
         val customButtons = listOf(btnCustom1, btnCustom2, btnCustom3, btnCustom4)
 
-
         // intent에서 ID 가져오기
         itemId = intent.getStringExtra("itemId")
         if (itemId == null) {
@@ -209,13 +208,26 @@ class NumberZoomActivity : AppCompatActivity() {
                 editCustom4.text.toString().toIntOrNull() ?: 0
             )
 
-            // 5. 유효성 검사
+
+            //5. 추가된 유효성 검사
             if (name.isEmpty()) {
                 Toast.makeText(this, "이름을 입력해주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            if (minVal < 0) {
+                Toast.makeText(this, "최솟값은 음수가 될 수 없습니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             if (minVal > maxVal) {
                 Toast.makeText(this, "최솟값은 최댓값보다 클 수 없습니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (decStep <= 0) {
+                Toast.makeText(this, "감소량은 1 이상이어야 합니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (incStep <= 0) {
+                Toast.makeText(this, "증가량은 1 이상이어야 합니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -235,7 +247,3 @@ class NumberZoomActivity : AppCompatActivity() {
         }
     }
 }
-
-
-
-

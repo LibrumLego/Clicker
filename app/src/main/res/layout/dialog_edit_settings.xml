@@ -5,7 +5,7 @@
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_dialog_border"
-    android:padding="16dp">
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/labelName"
@@ -25,7 +25,7 @@
         app:layout_constraintTop_toBottomOf="@id/labelName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="4dp"/>
+        android:layout_marginTop="8dp"/>
 
     <TextView
         android:id="@+id/labelColor"
@@ -34,7 +34,7 @@
         android:text="색상"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/editName"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@id/labelColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="4dp">
+        android:layout_marginTop="8dp">
 
         <ImageView
             android:id="@+id/colorRed"
@@ -94,21 +94,23 @@
         android:text="감소량"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/colorOptionContainer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guideCenter" /> <TextView
-    android:id="@+id/labelIncrement"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:text="증가량"
-    android:textColor="@android:color/black"
-    android:textSize="14sp"
-    android:layout_marginTop="16dp"
-    app:layout_constraintTop_toBottomOf="@id/colorOptionContainer"
-    app:layout_constraintStart_toEndOf="@id/guideCenter"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:paddingStart="8dp" />
+        app:layout_constraintEnd_toStartOf="@id/guideCenter" />
+
+    <TextView
+        android:id="@+id/labelIncrement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="증가량"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/colorOptionContainer"
+        app:layout_constraintStart_toEndOf="@id/guideCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="8dp" />
 
     <EditText
         android:id="@+id/editDecrementStep"
@@ -119,8 +121,7 @@
         app:layout_constraintTop_toBottomOf="@id/labelDecrement"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideCenter"
-        android:layout_marginEnd="4dp"
-        android:layout_marginTop="4dp" />
+        android:layout_marginEnd="8dp" android:layout_marginTop="8dp" />
 
     <EditText
         android:id="@+id/editIncrementStep"
@@ -131,8 +132,7 @@
         app:layout_constraintTop_toBottomOf="@id/labelIncrement"
         app:layout_constraintStart_toEndOf="@id/guideCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp" />
+        android:layout_marginStart="8dp" android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/labelMin"
@@ -141,7 +141,7 @@
         android:text="최솟값"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/editDecrementStep"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideCenter" />
@@ -153,7 +153,7 @@
         android:text="최댓값"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/editIncrementStep"
         app:layout_constraintStart_toEndOf="@id/guideCenter"
         app:layout_constraintEnd_toEndOf="parent"
@@ -168,20 +168,18 @@
         app:layout_constraintTop_toBottomOf="@id/labelMin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideCenter"
-        android:layout_marginEnd="4dp"
-        android:layout_marginTop="4dp" />
+        android:layout_marginEnd="8dp" android:layout_marginTop="8dp" />
 
     <EditText
         android:id="@+id/editMaxValue"
         style="@style/PopupInputStyle"
         android:layout_width="0dp"
-        android:hint="기본: 100"
+        android:hint="기본: 99999999"
         android:inputType="numberSigned"
         app:layout_constraintTop_toBottomOf="@id/labelMax"
         app:layout_constraintStart_toEndOf="@id/guideCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp" />
+        android:layout_marginStart="8dp" android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/labelCustom1"
@@ -190,7 +188,7 @@
         android:text="추가값 #1"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/editMinValue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideCenter" />
@@ -202,7 +200,7 @@
         android:text="추가값 #2"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/editMaxValue"
         app:layout_constraintStart_toEndOf="@id/guideCenter"
         app:layout_constraintEnd_toEndOf="parent"
@@ -217,8 +215,7 @@
         app:layout_constraintTop_toBottomOf="@id/labelCustom1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideCenter"
-        android:layout_marginEnd="4dp"
-        android:layout_marginTop="4dp" />
+        android:layout_marginEnd="8dp" android:layout_marginTop="8dp" />
 
     <EditText
         android:id="@+id/editCustomStep2"
@@ -229,8 +226,7 @@
         app:layout_constraintTop_toBottomOf="@id/labelCustom2"
         app:layout_constraintStart_toEndOf="@id/guideCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp" />
+        android:layout_marginStart="8dp" android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/labelCustom3"
@@ -239,7 +235,7 @@
         android:text="추가값 #3"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/editCustomStep1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideCenter" />
@@ -251,7 +247,7 @@
         android:text="추가값 #4"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/editCustomStep2"
         app:layout_constraintStart_toEndOf="@id/guideCenter"
         app:layout_constraintEnd_toEndOf="parent"
@@ -266,8 +262,7 @@
         app:layout_constraintTop_toBottomOf="@id/labelCustom3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideCenter"
-        android:layout_marginEnd="4dp"
-        android:layout_marginTop="4dp" />
+        android:layout_marginEnd="8dp" android:layout_marginTop="8dp" />
 
     <EditText
         android:id="@+id/editCustomStep4"
@@ -278,8 +273,7 @@
         app:layout_constraintTop_toBottomOf="@id/labelCustom4"
         app:layout_constraintStart_toEndOf="@id/guideCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp" />
+        android:layout_marginStart="8dp" android:layout_marginTop="8dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnConfirmEdit"
@@ -289,12 +283,12 @@
         android:textSize="18sp"
         android:textAllCaps="false"
         app:cornerRadius="12dp"
-        app:backgroundTint="@color/purple_500"
+        android:background="@drawable/topbar_gradient"
+        app:backgroundTint="@null"
         app:layout_constraintTop_toBottomOf="@id/editCustomStep4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="32dp" android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline

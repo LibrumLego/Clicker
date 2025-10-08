@@ -20,7 +20,7 @@ data class CounterItem(
     var decrementStep: Int = 1, // 감소량
     var incrementStep: Int = 1, // 증가량
     var minValue: Int = 0,      // 최솟값
-    var maxValue: Int = 100,    // 최댓값
+    var maxValue: Int = 99999999,    // 최댓값
 
     // 커스텀 추가값 버튼 필드
     val customSteps: MutableList<Int> = mutableListOf(10, 50, 100, 1000)
