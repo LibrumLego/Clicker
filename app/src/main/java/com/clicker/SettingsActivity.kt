@@ -7,11 +7,19 @@ import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 
+// 🔑 광고 import
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
+
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var vibrationSwitch: Switch
     private val PREFS_NAME = "AppSettings"
     private val VIBRATION_KEY = "vibration_enabled"
+
+    // ✅ 광고 뷰
+    private lateinit var adView: AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,14 +60,12 @@ class SettingsActivity : AppCompatActivity() {
         // 스위치 상태 변경 시 SharedPreferences에 즉시 반영
         vibrationSwitch.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean(VIBRATION_KEY, isChecked).apply()
-
-            if (isChecked) {
-                // ✅ 진동 기능 활성화됨
-                // (MainActivity 등에서 triggerVibration() 호출 시 작동)
-            } else {
-                // 🚫 진동 기능 비활성화됨
-                // (버튼 눌러도 진동 안 울림)
-            }
         }
+
+        // ✅ 광고 초기화 및 로드
+        MobileAds.initialize(this) {}
+        adView = findViewById(R.id.adView_settings)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 }

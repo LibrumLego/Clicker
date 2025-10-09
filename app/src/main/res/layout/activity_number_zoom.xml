@@ -2,12 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     tools:context=".NumberZoomActivity">
 
+    <!-- 상단 아이콘 바 -->
     <LinearLayout
         android:id="@+id/top_icon_bar"
         android:layout_width="0dp"
@@ -52,6 +54,7 @@
             android:contentDescription="설정 팝업" />
     </LinearLayout>
 
+    <!-- 중앙 숫자 -->
     <TextView
         android:id="@+id/zoomNumber"
         android:layout_width="wrap_content"
@@ -68,6 +71,7 @@
         app:layout_constraintVertical_bias="0.700"
         app:layout_constraintVertical_chainStyle="packed" />
 
+    <!-- 마이너스 버튼 -->
     <TextView
         android:id="@+id/btnMinus"
         android:layout_width="80dp"
@@ -85,6 +89,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/zoomNumber" />
 
+    <!-- 플러스 버튼 -->
     <TextView
         android:id="@+id/btnPlus"
         android:layout_width="80dp"
@@ -100,6 +105,7 @@
         app:layout_constraintTop_toTopOf="@id/btnMinus"
         app:layout_constraintVertical_bias="0.0" />
 
+    <!-- 커스텀 버튼 바 -->
     <LinearLayout
         android:id="@+id/bottom_custom_buttons"
         android:layout_width="0dp"
@@ -108,12 +114,13 @@
         android:gravity="center"
         android:paddingHorizontal="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_ad_bar"
+        app:layout_constraintBottom_toTopOf="@id/adView_zoom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCustom1"  android:layout_width="0dp"
+            android:id="@+id/btnCustom1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="100"
@@ -125,7 +132,8 @@
             app:elevation="0dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCustom2"  android:layout_width="0dp"
+            android:id="@+id/btnCustom2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="100"
@@ -137,7 +145,8 @@
             app:elevation="0dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCustom3"  android:layout_width="0dp"
+            android:id="@+id/btnCustom3"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="100"
@@ -149,27 +158,28 @@
             app:elevation="0dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCustom4"  android:layout_width="0dp"
+            android:id="@+id/btnCustom4"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="100"
-            android.textSize="14sp"
+            android:textSize="14sp"
             android:textColor="#000000"
             android:background="@drawable/bg_custom_button_outline"
             app:backgroundTint="@null"
             app:elevation="0dp" />
     </LinearLayout>
 
-    <View
-        android:id="@+id/bottom_ad_bar"
+    <!-- ✅ 하단 광고 바 -->
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView_zoom"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:background="#DDDDDD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"/> <!-- 테스트 ID -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.clicker"   // ✅ 패키지 통일
+    namespace = "com.clicker"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.clicker"   // ✅ 패키지 통일
+        applicationId = "com.clicker"
         minSdk = 21
         targetSdk = 34
         versionCode = 1
@@ -26,10 +26,12 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
@@ -43,8 +45,12 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // ✅ 앱에서 사용하는 기본 라이브러리
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.activity:activity-ktx:1.9.0")
     implementation("androidx.fragment:fragment-ktx:1.6.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+
+    // ✅ AdMob (Google 광고 SDK)
+    implementation("com.google.android.gms:play-services-ads:23.0.0")
 }
