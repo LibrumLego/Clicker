@@ -163,7 +163,7 @@
         android:id="@+id/editMinValue"
         style="@style/PopupInputStyle"
         android:layout_width="0dp"
-        android:hint="기본: 1"
+        android:hint="기본: 0"
         android:inputType="numberSigned"
         app:layout_constraintTop_toBottomOf="@id/labelMin"
         app:layout_constraintStart_toStartOf="parent"

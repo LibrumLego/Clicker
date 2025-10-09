@@ -151,6 +151,9 @@ class NumberZoomActivity : AppCompatActivity() {
     // ----------------------------------------------------------------------
     // 기존 다이얼로그 함수 (유지)
     // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
+    // 설정 다이얼로그 함수 (최종 수정: 최댓값 8자리 제한 추가)
+    // ----------------------------------------------------------------------
     private fun showEditSettingsDialog() {
         val currentItem = viewModel.counters.value?.find { it.id == itemId } ?: return
 
@@ -184,24 +187,20 @@ class NumberZoomActivity : AppCompatActivity() {
         editDecStep.setText(currentItem.decrementStep.toString())
         editIncStep.setText(currentItem.incrementStep.toString())
 
-        // ✅ 최솟값: 저장된 값이 기본값(1)이 아닐 때만 필드에 채움
-        if (currentItem.minValue != 1) {
+        // 최솟값: 저장된 값이 기본값(0)이 아닐 때만 필드에 채움
+        if (currentItem.minValue != 0) {
             editMinVal.setText(currentItem.minValue.toString())
         }
 
-        // ✅ 최댓값: 저장된 값이 기본값(99999999)이 아닐 때만 필드에 채움
+        // 최댓값: 저장된 값이 기본값(99999999)이 아닐 때만 필드에 채움
         if (currentItem.maxValue != 99999999) {
             editMaxVal.setText(currentItem.maxValue.toString())
-        } else {
-            // 최대 기본값일 경우에도 필드를 비워두어 힌트만 표시
-            editMaxVal.setText("")
         }
 
         editCustom1.setText(currentItem.customSteps.getOrNull(0)?.toString() ?: "")
         editCustom2.setText(currentItem.customSteps.getOrNull(1)?.toString() ?: "")
         editCustom3.setText(currentItem.customSteps.getOrNull(2)?.toString() ?: "")
         editCustom4.setText(currentItem.customSteps.getOrNull(3)?.toString() ?: "")
-
 
         // 2. 색상 선택 UI 구현 및 클릭 리스너 추가
         colorViews.forEach { v ->
@@ -238,11 +237,19 @@ class NumberZoomActivity : AppCompatActivity() {
             // 입력 값 유효성 검사 및 파싱
             val name = editName.text.toString().trim()
 
+            // 🚨 최댓값 자리수 검사 (8자리 초과 금지)
+            val maxValInputString = editMaxVal.text.toString().trim()
+            if (maxValInputString.isNotEmpty() && maxValInputString.length > 8) {
+                Toast.makeText(this, "최댓값은 8자리를 초과할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             // 💡 입력 값 (Input)과 대체 값 (Final Value) 분리
             val decStepInput = editDecStep.text.toString().toIntOrNull()
             val incStepInput = editIncStep.text.toString().toIntOrNull()
             val minValInput = editMinVal.text.toString().toIntOrNull()
-            val maxValInput = editMaxVal.text.toString().toIntOrNull()
+            // 8자리 검사를 통과한 문자열을 Int로 파싱
+            val maxValInput = maxValInputString.toIntOrNull()
 
             // 🚨 파싱: 입력 값이 없거나 숫자가 아니면 currentItem의 기존 값(현재 저장된 값)을 사용
             val decStep = decStepInput ?: currentItem.decrementStep
@@ -259,23 +266,23 @@ class NumberZoomActivity : AppCompatActivity() {
             )
 
 
-            // 5. 유효성 검사
+            // 5. 유효성 검사 (나머지 검사)
             if (name.isEmpty()) {
                 Toast.makeText(this, "이름을 입력해주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // 💡 최솟값 1 미만 검사: 입력된 값이 있을 때만 검사
-            if (minValInput != null && minValInput < 1) {
-                Toast.makeText(this, "최솟값은 1 이상이어야 합니다.", Toast.LENGTH_SHORT).show()
+            // 💡 최솟값 음수 검사
+            if (minValInput != null && minValInput < 0) {
+                Toast.makeText(this, "최솟값은 음수가 될 수 없습니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            // 💡 감소량 1 미만 검사: 입력된 값이 있을 때만 검사
+            // 💡 감소량 1 미만 검사
             if (decStepInput != null && decStepInput < 1) {
                 Toast.makeText(this, "감소량은 1 이상이어야 합니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            // 💡 증가량 1 미만 검사: 입력된 값이 있을 때만 검사
+            // 💡 증가량 1 미만 검사
             if (incStepInput != null && incStepInput < 1) {
                 Toast.makeText(this, "증가량은 1 이상이어야 합니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
