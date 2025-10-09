@@ -6,38 +6,40 @@ import androidx.lifecycle.ViewModel
 import java.util.UUID
 
 // ----------------------------------------------------------------------
-// CounterItem 데이터 모델 (1단계 반영)
+// CounterItem 데이터 모델
 // ----------------------------------------------------------------------
 data class CounterItem(
-    // ID: 데이터 안정성을 위한 고유 ID (생성 시 자동 부여)
     var id: String = UUID.randomUUID().toString(),
-
     var name: String,
     var value: Int = 0,
     var colorRes: Int,
-
-    // 설정 필드 (3단계 설정 반영)
-    var decrementStep: Int = 1, // 감소량
-    var incrementStep: Int = 1, // 증가량
-    var minValue: Int = 0,      // 최솟값
-    var maxValue: Int = 99999999,    // 최댓값
-
-    // 커스텀 추가값 버튼 필드
+    var decrementStep: Int = 1,
+    var incrementStep: Int = 1,
+    var minValue: Int = 0,      // 기본값 0 유지
+    var maxValue: Int = 99999999,
     val customSteps: MutableList<Int> = mutableListOf(10, 50, 100, 1000)
 )
 
 // ----------------------------------------------------------------------
 // CounterViewModel 클래스
 // ----------------------------------------------------------------------
-class CounterViewModel : ViewModel() { // 표준 ViewModel 상속
+class CounterViewModel : ViewModel() {
 
     private val _counters = MutableLiveData<MutableList<CounterItem>>(mutableListOf())
     val counters: LiveData<MutableList<CounterItem>> = _counters
 
-    // LiveData 옵저버에게 변경을 알리는 헬퍼 함수
+    // ✅ 유효성 검사 실패 메시지 LiveData (타입 명확)
+    private val _validationMessage = MutableLiveData<String?>()
+    val validationMessage: LiveData<String?> = _validationMessage // public으로 노출
+
+    // LiveData 옵저버에게 변경을 알리는 헬퍼 함수 (타입 모호성 해결)
     private fun <T> MutableLiveData<T>.notifyObserver() {
-        // LiveData 값을 다시 설정하여 옵저버가 변경을 감지하도록 함
-        this.value = this.value //T 타입에 대해 안전하게 쓰기 작업 수행 가능
+        this.value = this.value
+    }
+
+    // ✅ Activity가 메시지를 소비했음을 알리는 함수 (오류 해결 핵심)
+    fun clearValidationMessage() {
+        _validationMessage.value = null
     }
 
     // 카운터 추가 (addCounter)
@@ -46,47 +48,25 @@ class CounterViewModel : ViewModel() { // 표준 ViewModel 상속
         _counters.notifyObserver()
     }
 
-    // ----------------------------------------------------------------------
-    // 6단계: ID 기반 값 갱신 및 유효성 검사 (핵심 안전 로직)
-    // ----------------------------------------------------------------------
-    /**
-     * 특정 카운터 아이템의 값을 ID를 사용하여 갱신하고 최솟값/최댓값 범위 내로 제한합니다.
-     * @param id 갱신할 CounterItem의 고유 ID
-     * @param newValue 새로운 값
-     */
+    // ID 기반 값 갱신 및 유효성 검사
     fun updateValueById(id: String, newValue: Int) {
-        // ID를 사용하여 아이템을 찾고, 없으면 함수 종료
         val item = _counters.value?.find { it.id == id } ?: return
-
-        // 💡 coerceIn을 사용하여 item에 설정된 범위 내로 값을 제한 (유효성 검사)
         item.value = newValue.coerceIn(item.minValue, item.maxValue)
-
         _counters.notifyObserver()
     }
 
-    // ----------------------------------------------------------------------
-    // 6단계: ID 기반 삭제
-    // ----------------------------------------------------------------------
-    /**
-     * 특정 카운터 아이템을 ID를 사용하여 삭제합니다.
-     * @param id 삭제할 CounterItem의 고유 ID
-     */
+    // ID 기반 삭제
     fun removeCounterById(id: String) {
         val list = _counters.value
-        val itemToRemove = list?.find { it.id == id } // ID로 객체를 찾음
+        val itemToRemove = list?.find { it.id == id }
 
         if (itemToRemove != null) {
-            list.remove(itemToRemove) // 찾은 객체를 리스트에서 삭제
+            list.remove(itemToRemove)
             _counters.notifyObserver()
         }
     }
 
-    // ----------------------------------------------------------------------
-    // 3단계: 카운터 설정 전체 갱신 (updateCounterSettings)
-    // ----------------------------------------------------------------------
-    /**
-     * 특정 카운터 아이템의 모든 설정 값(이름, 색상, 증감량, 범위, 커스텀 값)을 갱신합니다.
-     */
+    // 카운터 설정 전체 갱신 (updateCounterSettings)
     fun updateCounterSettings(
         id: String,
         newName: String,
@@ -95,12 +75,19 @@ class CounterViewModel : ViewModel() { // 표준 ViewModel 상속
         newIncrementStep: Int,
         newMinValue: Int,
         newMaxValue: Int,
-        newCustomSteps: List<Int> // 4개의 커스텀 값이 들어있는 리스트
+        newCustomSteps: List<Int>
     ) {
+        // 🚨 유효성 검사 실패 시 메시지 LiveData에 전달 (Activity가 Toast 표시)
+        val hasNegativeStep = newCustomSteps.any { it < 0 }
+
+        if (newDecrementStep < 1 || newIncrementStep < 1 || newMinValue < 0 || newMaxValue < 0 || hasNegativeStep) {
+            _validationMessage.value = "설정 값은 음수일 수 없으며, 증감 값은 1 이상이어야 합니다."
+            return
+        }
+
         val itemToUpdate = _counters.value?.find { it.id == id }
 
         itemToUpdate?.apply {
-            // 새 설정 값들을 아이템에 반영
             name = newName
             colorRes = newColorRes
             decrementStep = newDecrementStep
@@ -108,11 +95,9 @@ class CounterViewModel : ViewModel() { // 표준 ViewModel 상속
             minValue = newMinValue
             maxValue = newMaxValue
 
-            // 커스텀 버튼 값 갱신
             customSteps.clear()
             customSteps.addAll(newCustomSteps)
 
-            // ✅ 설정 변경 후, 현재 값(value)이 새로운 범위 내에 있는지 확인하고 조정
             value = value.coerceIn(minValue, maxValue)
         }
 
