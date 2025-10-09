@@ -2,11 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <!-- 1. 상태바 영역 색상 채우기 (추가된 View) -->
+    <!-- 상태바 영역 색상 -->
     <View
         android:layout_width="0dp"
         android:layout_height="25dp"
@@ -38,7 +39,6 @@
             android:scaleType="centerInside"
             android:contentDescription="추가 버튼" />
 
-
         <!-- 설정 버튼 -->
         <ImageButton
             android:id="@+id/settingsButton"
@@ -51,14 +51,14 @@
             android:contentDescription="설정 버튼" />
     </LinearLayout>
 
-    <!-- 아이템이 추가될 영역 (스크롤 지원) -->
+    <!-- 아이템 추가 영역 (스크롤 지원) -->
     <ScrollView
         android:id="@+id/scrollArea"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -71,13 +71,15 @@
             android:gravity="center_horizontal"/>
     </ScrollView>
 
-    <!-- 하단 광고 바 -->
-    <View
-        android:id="@+id/bottomBar"
+    <!-- 하단 광고 바 (AdMob) -->
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:background="#DDDDDD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"/> <!-- 테스트 ID -->
 </androidx.constraintlayout.widget.ConstraintLayout>

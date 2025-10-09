@@ -13,11 +13,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.graphics.drawable.LayerDrawable
 import android.graphics.Color
 
+// 🔑 AdMob import
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var container: LinearLayout
     private lateinit var viewModel: CounterViewModel
     private val MAX_ITEMS = 10
+
+    // ✅ 광고 뷰
+    private lateinit var adView: AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +43,12 @@ class MainActivity : AppCompatActivity() {
         val addButton: ImageButton = findViewById(R.id.addButton)
         val settingsButton: ImageButton = findViewById(R.id.settingsButton)
 
+        // ✅ 광고 초기화 및 로드
+        MobileAds.initialize(this) {}
+        adView = findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+
         // ✅ ViewModel 연결
         viewModel = (application as MyApplication).counterViewModel
 
@@ -46,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // ➕ 아이템 추가 버튼 → 진동 ❌ (조용하게)
+        // ➕ 아이템 추가 버튼
         addButton.setOnClickListener {
             if (viewModel.counters.value?.size ?: 0 >= MAX_ITEMS) {
                 Toast.makeText(this, "최대 ${MAX_ITEMS}개까지만 추가 가능합니다.", Toast.LENGTH_SHORT).show()
@@ -55,9 +69,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // ⚙️ 설정 버튼 → 진동 ❌ (조용하게)
+        // ⚙️ 설정 버튼
         settingsButton.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
+            startActivity(Intent(this, SettingsActivity::class.java)) // ✅ packageContext → this
         }
     }
 
@@ -68,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("AppSettings", MODE_PRIVATE)
         val vibrationEnabled = prefs.getBoolean("vibration_enabled", true)
 
-        if (!vibrationEnabled) return // 스위치 OFF 시 종료
+        if (!vibrationEnabled) return
 
         val vibrator: Vibrator = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             val vm = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
@@ -107,7 +121,6 @@ class MainActivity : AppCompatActivity() {
 
         colorViews.forEach { v ->
             v.setOnClickListener {
-                // 진동 ❌ (색상 선택 시 조용)
                 colorViews.forEach { it.isSelected = false }
                 v.isSelected = true
                 selectedColorRes = when (v.id) {
@@ -126,7 +139,6 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
 
         btnConfirm.setOnClickListener {
-            // 진동 ❌
             val name = editName.text.toString().trim()
             if (name.isEmpty()) {
                 Toast.makeText(this, "이름을 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -179,7 +191,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.updateValueById(item.id, newValue)
         }
 
-        // 숫자 클릭 → 진동 ❌
+        // 숫자 클릭 → 확대 화면 이동
         itemValue.setOnClickListener {
             val intent = Intent(this, NumberZoomActivity::class.java)
             intent.putExtra("itemId", item.id)

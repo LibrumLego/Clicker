@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,6 +15,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
+
         <!-- 정보 섹션 헤더 -->
         <TextView
             android:layout_width="match_parent"
@@ -99,7 +101,6 @@
             android:padding="16dp"
             android:gravity="center_vertical">
 
-            <!-- 텍스트는 왼쪽 -->
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -108,7 +109,6 @@
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
 
-            <!-- 스위치 오른쪽 -->
             <Switch
                 android:id="@+id/switch_vibration"
                 android:layout_width="wrap_content"
@@ -163,11 +163,13 @@
         android:textSize="12sp"
         android:textColor="#A9A9A9" />
 
-    <!-- 하단 광고 바 -->
-    <View
-        android:id="@+id/bottomBar"
+    <!-- ✅ 하단 광고 바 -->
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView_settings"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#DDDDDD"/>
+        android:layout_height="wrap_content"
+        android:background="#DDDDDD"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"/> <!-- 테스트 ID -->
 
 </LinearLayout>
