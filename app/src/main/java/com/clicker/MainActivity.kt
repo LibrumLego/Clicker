@@ -17,6 +17,9 @@ import android.graphics.Color
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.LoadAdError
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,8 +27,37 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: CounterViewModel
     private val MAX_ITEMS = 10
 
-    // ✅ 광고 뷰
+    // ✅ 배너 광고
     private lateinit var adView: AdView
+
+    // ✅ 전면 광고
+    private var mInterstitialAd: InterstitialAd? = null
+
+    private fun loadInterstitialAd() {
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(
+            this,
+            "ca-app-pub-3940256099942544/1033173712", // ✅ 테스트용 전면 광고 ID
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    mInterstitialAd = ad
+                }
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    mInterstitialAd = null
+                }
+            }
+        )
+    }
+
+    private fun maybeShowAd(probability: Int) {
+        // 🎲 확률(%)로 광고 띄우기
+        if ((1..100).random() <= probability && mInterstitialAd != null) {
+            mInterstitialAd?.show(this)
+            mInterstitialAd = null
+            loadInterstitialAd() // 다음 광고 준비
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +75,14 @@ class MainActivity : AppCompatActivity() {
         val addButton: ImageButton = findViewById(R.id.addButton)
         val settingsButton: ImageButton = findViewById(R.id.settingsButton)
 
-        // ✅ 광고 초기화 및 로드
+        // ✅ 광고 초기화
         MobileAds.initialize(this) {}
         adView = findViewById(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
+
+        // ✅ 전면 광고 로드
+        loadInterstitialAd()
 
         // ✅ ViewModel 연결
         viewModel = (application as MyApplication).counterViewModel
@@ -66,17 +101,18 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "최대 ${MAX_ITEMS}개까지만 추가 가능합니다.", Toast.LENGTH_SHORT).show()
             } else {
                 showAddItemDialog()
+                maybeShowAd(30) // ✅ 카운터 생성 시 30% 확률로 전면 광고
             }
         }
 
         // ⚙️ 설정 버튼
         settingsButton.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java)) // ✅ packageContext → this
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
 
     /**
-     * ✅ 짧은 진동 (핵심 버튼 전용)
+     * ✅ 짧은 진동
      */
     private fun triggerVibration() {
         val prefs = getSharedPreferences("AppSettings", MODE_PRIVATE)
@@ -177,26 +213,28 @@ class MainActivity : AppCompatActivity() {
 
         itemValue.text = item.value.toString()
 
-        // ➖ 버튼 → 진동 ✅
+        // ➖ 버튼
         btnMinus.setOnClickListener {
             triggerVibration()
             val newValue = item.value - item.decrementStep
             viewModel.updateValueById(item.id, newValue)
         }
 
-        // ➕ 버튼 → 진동 ✅
+        // ➕ 버튼
         btnPlus.setOnClickListener {
             triggerVibration()
             val newValue = item.value + item.incrementStep
             viewModel.updateValueById(item.id, newValue)
         }
 
-        // 숫자 클릭 → 확대 화면 이동
+        // 숫자 클릭 → 확대 화면 이동 + 랜덤 광고
         itemValue.setOnClickListener {
             val intent = Intent(this, NumberZoomActivity::class.java)
             intent.putExtra("itemId", item.id)
             startActivity(intent)
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+
+            maybeShowAd(20) // ✅ 숫자 클릭 시 20% 확률로 전면 광고
         }
 
         container.addView(itemView)
