@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     tools:context=".HowToUseActivity">
@@ -12,22 +12,30 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- 상단 제목 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="사용방법"
+            android:text="앱 사용 설명서"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:gravity="center"
             android:paddingBottom="16dp" />
 
-        <!-- 카운터 설명 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="① 화면 중앙의 버튼을 누르면 카운터가 1씩 증가합니다."
+            android:text="① 카운트 조작"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingTop="12dp"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="・ 목록에서 카운터의 [+] 버튼을 누르면 설정된 '증가량'만큼 카운트가 증가하고, [-] 버튼을 누르면 '감소량'만큼 감소합니다."
             android:textSize="16sp"
             android:textColor="@color/black"
             android:paddingBottom="8dp" />
@@ -35,7 +43,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="② +에서 카운트 갯수를 추가할 수 있습니다."
+            android:text="・ 화면 중앙의 숫자를 터치하면 숫자가 확대된 상세 조작 화면으로 이동합니다."
             android:textSize="16sp"
             android:textColor="@color/black"
             android:paddingBottom="8dp" />
@@ -43,7 +51,17 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="③ 상단 메뉴에서 '설정' → '소리' 항목을 통해 효과음을 켜거나 끌 수 있습니다."
+            android:text="② 카운터 추가 및 설정 (상단 [+] 버튼)"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingTop="12dp"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="・ 상단 [+] 버튼을 눌러 새로운 카운터를 추가하고 이름과 색상을 지정할 수 있습니다."
             android:textSize="16sp"
             android:textColor="@color/black"
             android:paddingBottom="8dp" />
@@ -51,19 +69,52 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="④ 디자인 메뉴에서 테마를 변경해 원하는 스타일로 꾸밀 수 있습니다."
+            android:text="③ 카운터 상세 설정 (확대 화면 [연필] 버튼)"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingTop="12dp"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="・ 확대 화면의 [연필] 버튼을 누르면 카운터의\n'증가량', '감소량', '최솟값', '최댓값',그리고 하단에 표시될\n'추가값(#1~#4)'을 상세하게 설정할 수 있습니다."
             android:textSize="16sp"
             android:textColor="@color/black"
             android:paddingBottom="8dp" />
 
-        <!-- 하단 닫기 버튼 -->
-        <Button
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="④ 앱 설정 (상단 [톱니바퀴] 버튼)"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingTop="12dp"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="・ 상단 [톱니바퀴] 버튼을 통해 앱 설정을 변경할 수 있습니다."
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:paddingBottom="8dp" />
+
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_close"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="닫기"
+            android:textColor="@android:color/white"
             android:textAllCaps="false"
-            android:layout_marginTop="24dp" />
+            android:layout_marginTop="32dp"
+
+            android:background="@drawable/topbar_gradient"
+            app:backgroundTint="@null"  android:textStyle="bold"
+            app:cornerRadius="8dp"       />
 
     </LinearLayout>
 </ScrollView>

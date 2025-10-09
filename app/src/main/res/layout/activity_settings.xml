@@ -51,7 +51,7 @@
             android:id="@+id/button_inquiries"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="문의사항 : support@yourapp.com"
+            android:text="문의사항 : woodangtanglab@gmail.com"
             android:textColor="@color/black"
             android:gravity="left|center_vertical"
             android:padding="16dp"
