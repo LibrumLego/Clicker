@@ -12,6 +12,8 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import android.graphics.drawable.LayerDrawable
 import android.graphics.Color
+import android.text.TextWatcher
+import android.text.Editable
 
 // 🔑 AdMob import
 import com.google.android.gms.ads.AdRequest
@@ -43,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onAdLoaded(ad: InterstitialAd) {
                     mInterstitialAd = ad
                 }
+
                 override fun onAdFailedToLoad(adError: LoadAdError) {
                     mInterstitialAd = null
                 }
@@ -155,6 +158,7 @@ class MainActivity : AppCompatActivity() {
         val colorViews = listOf(colorRed, colorBlue, colorGreen, colorYellow, colorPurple)
         var selectedColorRes: Int? = null
 
+        // ✅ 색상 선택
         colorViews.forEach { v ->
             v.setOnClickListener {
                 colorViews.forEach { it.isSelected = false }
@@ -174,6 +178,60 @@ class MainActivity : AppCompatActivity() {
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.show()
 
+        // ✅ 글자 수 제한 (자음/모음 포함)
+        editName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                s?.let {
+                    val text = it.toString()
+
+                    // 자음(ㄱ~ㅎ), 모음(ㅏ~ㅣ), 완성형(가~힣)
+                    val koreanCount = text.count { ch ->
+                        (ch in '가'..'힣') || (ch in 'ㄱ'..'ㅎ') || (ch in 'ㅏ'..'ㅣ')
+                    }
+                    val englishCount = text.count { ch -> ch in 'A'..'Z' || ch in 'a'..'z' }
+                    val totalCount = text.length
+
+                    // ✅ 한글만 입력
+                    if (koreanCount == totalCount && koreanCount > 10) {
+                        Toast.makeText(
+                            dialogView.context,
+                            "한글은 최대 10자까지 입력 가능합니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        editName.setText(text.dropLast(1))
+                        editName.setSelection(editName.text.length)
+                        return
+                    }
+
+                    // ✅ 영어만 입력
+                    if (englishCount == totalCount && englishCount > 20) {
+                        Toast.makeText(
+                            dialogView.context,
+                            "영문은 최대 20자까지 입력 가능합니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        editName.setText(text.dropLast(1))
+                        editName.setSelection(editName.text.length)
+                        return
+                    }
+
+                    // ✅ 혼합 입력 (한글 + 영어)
+                    if (koreanCount > 0 && englishCount > 0 && totalCount > 12) {
+                        Toast.makeText(
+                            dialogView.context,
+                            "한글+영문 혼합 시 최대 12자까지 입력 가능합니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        editName.setText(text.dropLast(1))
+                        editName.setSelection(editName.text.length)
+                    }
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        // ✅ 확인 버튼
         btnConfirm.setOnClickListener {
             val name = editName.text.toString().trim()
             if (name.isEmpty()) {
