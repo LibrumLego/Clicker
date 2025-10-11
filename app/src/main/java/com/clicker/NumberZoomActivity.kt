@@ -118,12 +118,6 @@ class NumberZoomActivity : AppCompatActivity() {
                 viewModel.updateValueById(item.id, item.value + step)
             }
         }
-
-        // 숫자 클릭 시 종료
-        zoomNumber.setOnClickListener {
-            finish()
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        }
     }
 
     // ----------------------------------------------------------------------
