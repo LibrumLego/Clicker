@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <!-- 상태바 영역 색상 -->
+    <!-- 상태바 영역 -->
     <View
         android:layout_width="0dp"
         android:layout_height="25dp"
         android:background="@drawable/topbar_gradient"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- 상단 버튼 영역 -->
     <LinearLayout
@@ -51,7 +51,7 @@
             android:contentDescription="설정 버튼" />
     </LinearLayout>
 
-    <!-- 아이템 추가 영역 (스크롤 지원) -->
+    <!-- 스크롤 영역 -->
     <ScrollView
         android:id="@+id/scrollArea"
         android:layout_width="0dp"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal" />
     </ScrollView>
 
     <!-- 하단 광고 바 (AdMob) -->
@@ -81,5 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"/> <!-- 테스트 ID -->
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" /> <!-- 테스트 ID -->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

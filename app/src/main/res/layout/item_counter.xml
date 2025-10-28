@@ -13,20 +13,20 @@
         android:id="@+id/itemName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="운동"
-        android:textSize="20sp"
-        android:textColor="#000000"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:layout_marginBottom="8dp"/>
+        android:text="운동"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
-    <!-- 버튼과 값 영역 -->
+    <!-- 버튼 + 값 영역 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:orientation="horizontal"
         android:gravity="center">
 
-        <!-- - 버튼 -->
+        <!-- 감소 버튼 -->
         <TextView
             android:id="@+id/btnMinus"
             android:layout_width="0dp"
@@ -34,11 +34,11 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="-"
-            android:textSize="28sp"
             android:textColor="@android:color/white"
-            android:background="@drawable/bg_button_gradient_left"/>
+            android:textSize="28sp"
+            android:background="@drawable/bg_button_gradient_left" />
 
-        <!-- 값 -->
+        <!-- 현재 값 -->
         <TextView
             android:id="@+id/itemValue"
             android:layout_width="0dp"
@@ -47,13 +47,13 @@
             android:layout_marginHorizontal="12dp"
             android:gravity="center"
             android:text="0"
-            android:textSize="24sp"
             android:textColor="#000000"
+            android:textSize="24sp"
             android:background="@drawable/bg_edittext_border"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true" />
 
-        <!-- + 버튼 -->
+        <!-- 증가 버튼 -->
         <TextView
             android:id="@+id/btnPlus"
             android:layout_width="0dp"
@@ -61,8 +61,9 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="+"
-            android:textSize="28sp"
             android:textColor="@android:color/white"
-            android:background="@drawable/bg_button_gradient_right"/>
+            android:textSize="28sp"
+            android:background="@drawable/bg_button_gradient_right" />
     </LinearLayout>
+
 </LinearLayout>

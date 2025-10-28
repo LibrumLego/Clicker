@@ -1,6 +1,5 @@
 package com.clicker
 
-import android.content.Context
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
@@ -14,9 +13,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
-import android.widget.Toast
 
-// ✅ 광고 import
+// 광고 import
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -26,14 +24,14 @@ class NumberZoomActivity : AppCompatActivity() {
     private lateinit var viewModel: CounterViewModel
     private var itemId: String? = null
 
-    // ✅ 배너 광고 뷰
+    // 배너 광고 뷰
     private lateinit var adViewZoom: AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_number_zoom)
 
-        // ✅ 광고 초기화 및 로드
+        // 광고 초기화 및 로드
         MobileAds.initialize(this) {}
         adViewZoom = findViewById(R.id.adView_zoom)
         val adRequest = AdRequest.Builder().build()
@@ -121,18 +119,18 @@ class NumberZoomActivity : AppCompatActivity() {
     }
 
     // ----------------------------------------------------------------------
-    // ✅ 짧은 진동 함수
+    // 짧은 진동 함수
     // ----------------------------------------------------------------------
     private fun triggerVibration() {
         val prefs = getSharedPreferences("AppSettings", MODE_PRIVATE)
         if (!prefs.getBoolean("vibration_enabled", true)) return
 
         val vibrator: Vibrator = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            val vm = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            val vm = getSystemService(VIBRATOR_MANAGER_SERVICE) as VibratorManager
             vm.defaultVibrator
         } else {
             @Suppress("DEPRECATION")
-            getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            getSystemService(VIBRATOR_SERVICE) as Vibrator
         }
 
         if (!vibrator.hasVibrator()) return

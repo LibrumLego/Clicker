@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,7 +17,7 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <!-- 정보 섹션 헤더 -->
+        <!-- 정보 섹션 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +28,7 @@
             android:paddingHorizontal="16dp"
             android:background="#E0E0E0" />
 
-        <!-- '사용방법' 버튼 -->
+        <!-- 사용방법 버튼 -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_how_to_use"
             android:layout_width="match_parent"
@@ -40,13 +41,12 @@
             app:cornerRadius="0dp"
             style="@style/Widget.MaterialComponents.Button.TextButton" />
 
-        <!-- 구분선 -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#D3D3D3" />
 
-        <!-- '문의사항' 버튼 -->
+        <!-- 문의사항 -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_inquiries"
             android:layout_width="match_parent"
@@ -59,13 +59,12 @@
             app:cornerRadius="0dp"
             style="@style/Widget.MaterialComponents.Button.TextButton" />
 
-        <!-- 구분선 -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#D3D3D3" />
 
-        <!-- '리뷰' 버튼 -->
+        <!-- 리뷰 -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_review"
             android:layout_width="match_parent"
@@ -83,7 +82,7 @@
             android:layout_height="1dp"
             android:background="#D3D3D3" />
 
-        <!-- 디자인 섹션 헤더 -->
+        <!-- 효과음 섹션 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,30 +97,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:padding="16dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="진동 켜기"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <Switch
                 android:id="@+id/switch_vibration"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <!-- 구분선 -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#D3D3D3" />
 
-        <!-- 기타 섹션 헤더 -->
+        <!-- 기타 섹션 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -132,7 +130,7 @@
             android:paddingHorizontal="16dp"
             android:background="#E0E0E0" />
 
-        <!-- '광고 제거' 버튼 -->
+        <!-- 광고 제거 -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_remove_ads"
             android:layout_width="match_parent"
@@ -149,10 +147,9 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#D3D3D3" />
-
     </LinearLayout>
 
-    <!-- 앱 버전 표시 -->
+    <!-- 앱 버전 -->
     <TextView
         android:id="@+id/version_info"
         android:layout_width="wrap_content"
@@ -163,13 +160,13 @@
         android:textSize="12sp"
         android:textColor="#A9A9A9" />
 
-    <!-- ✅ 하단 광고 바 -->
+    <!-- 하단 광고 바 (AdMob) -->
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#DDDDDD"
         app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-3940256099942544/6300978111"/> <!-- 테스트 ID -->
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111" /> <!-- 테스트 ID -->
 
 </LinearLayout>
