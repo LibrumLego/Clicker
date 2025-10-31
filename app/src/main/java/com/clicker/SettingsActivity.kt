@@ -1,11 +1,12 @@
 package com.clicker
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
+import androidx.core.net.toUri
+import androidx.core.content.edit
+import androidx.appcompat.widget.SwitchCompat
 
 // AdMob
 import com.google.android.gms.ads.AdRequest
@@ -17,11 +18,11 @@ import com.google.android.gms.ads.MobileAds
 // ----------------------------------------------------------------------
 class SettingsActivity : AppCompatActivity() {
 
-    private lateinit var vibrationSwitch: Switch
+    private lateinit var vibrationSwitch: SwitchCompat
     private lateinit var adView: AdView
 
-    private val PREFS_NAME = "AppSettings"
-    private val VIBRATION_KEY = "vibration_enabled"
+    private val prefsName = "AppSettings"
+    private val vibrationKey = "vibration_enabled"
 
     // ------------------------------------------------------------------
     // onCreate
@@ -31,7 +32,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         // SharedPreferences (앱 설정 저장)
-        val prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        val prefs = getSharedPreferences(prefsName, MODE_PRIVATE)
 
         // 🔘 사용 방법 버튼
         val howToUseButton: MaterialButton = findViewById(R.id.button_how_to_use)
@@ -43,14 +44,12 @@ class SettingsActivity : AppCompatActivity() {
         val reviewButton: MaterialButton = findViewById(R.id.button_review)
         reviewButton.setOnClickListener {
             try {
-                // Play 스토어 앱으로 이동
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
+                val intent = Intent(Intent.ACTION_VIEW, "market://details?id=$packageName".toUri())
                 startActivity(intent)
-            } catch (e: android.content.ActivityNotFoundException) {
-                // Play 스토어 앱이 없을 경우 → 웹 브라우저로 열기
+            } catch (_: android.content.ActivityNotFoundException) {
                 val intent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                    "https://play.google.com/store/apps/details?id=$packageName".toUri()
                 )
                 startActivity(intent)
             }
@@ -60,11 +59,13 @@ class SettingsActivity : AppCompatActivity() {
         vibrationSwitch = findViewById(R.id.switch_vibration)
 
         // 저장된 진동 설정 불러오기 (기본값 true)
-        vibrationSwitch.isChecked = prefs.getBoolean(VIBRATION_KEY, true)
+        vibrationSwitch.isChecked = prefs.getBoolean(vibrationKey, true)
 
         // 상태 변경 시 즉시 저장
         vibrationSwitch.setOnCheckedChangeListener { _, isChecked ->
-            prefs.edit().putBoolean(VIBRATION_KEY, isChecked).apply()
+            prefs.edit {
+                putBoolean(vibrationKey, isChecked)
+            }
         }
 
         // 광고 초기화 및 로드
