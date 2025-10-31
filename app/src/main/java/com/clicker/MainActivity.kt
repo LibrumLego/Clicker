@@ -13,6 +13,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+
 
 // AdMob
 import com.google.android.gms.ads.AdRequest
@@ -76,11 +78,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // 상태바 완전 투명
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = Color.TRANSPARENT
-            window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        }
+        window.statusBarColor = Color.TRANSPARENT
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
         // UI 초기화
         container = findViewById(R.id.container)
@@ -99,11 +99,10 @@ class MainActivity : AppCompatActivity() {
         // LiveData 관찰 → UI 자동 갱신
         viewModel.counters.observe(this) { list ->
             container.removeAllViews()
-            list.forEachIndexed { index, counterItem ->
-                addCounterItemToLayout(counterItem, index)
+            list.forEach { counterItem ->
+                addCounterItemToLayout(counterItem)
             }
         }
-
         // + 아이템 추가 버튼
         addButton.setOnClickListener {
             if ((viewModel.counters.value?.size ?: 0) >= MAX_ITEMS) {
@@ -242,7 +241,7 @@ class MainActivity : AppCompatActivity() {
     // ------------------------------------------------------------------
     // 카운터 아이템 UI 생성
     // ------------------------------------------------------------------
-    private fun addCounterItemToLayout(item: CounterItem, index: Int) {
+    private fun addCounterItemToLayout(item: CounterItem) {
         val itemView = LayoutInflater.from(this).inflate(R.layout.item_counter, container, false)
 
         val itemName = itemView.findViewById<TextView>(R.id.itemName)
@@ -254,8 +253,8 @@ class MainActivity : AppCompatActivity() {
         btnMinus.setBackgroundResource(item.colorRes)
         btnPlus.setBackgroundResource(item.colorRes)
 
-        val outerDrawable = resources.getDrawable(item.colorRes, theme).mutate()
-        val innerDrawable = resources.getDrawable(R.drawable.bg_edittext_border, theme).mutate()
+        val outerDrawable = ResourcesCompat.getDrawable(resources, item.colorRes, theme)?.mutate()
+        val innerDrawable = ResourcesCompat.getDrawable(resources, R.drawable.bg_edittext_border, theme)?.mutate()
         val layerDrawable = LayerDrawable(arrayOf(outerDrawable, innerDrawable))
         layerDrawable.setLayerInset(1, 4, 4, 4, 4)
         itemValue.background = layerDrawable
@@ -279,10 +278,20 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, NumberZoomActivity::class.java)
             intent.putExtra("itemId", item.id)
             startActivity(intent)
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            maybeShowAd(20) // 20% 확률로 광고
-        }
 
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE) { // Android 14+
+                overrideActivityTransition(
+                    OVERRIDE_TRANSITION_OPEN,
+                    android.R.anim.fade_in,
+                    android.R.anim.fade_out
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }
+
+            maybeShowAd(20)
+        }
         container.addView(itemView)
     }
 }

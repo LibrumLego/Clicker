@@ -21,7 +21,7 @@ data class CounterItem(
 )
 
 // ----------------------------------------------------------------------
-// ✅ CounterViewModel 클래스
+// CounterViewModel 클래스
 // ----------------------------------------------------------------------
 class CounterViewModel : ViewModel() {
 
@@ -29,18 +29,9 @@ class CounterViewModel : ViewModel() {
     private val _counters = MutableLiveData<MutableList<CounterItem>>(mutableListOf())
     val counters: LiveData<MutableList<CounterItem>> = _counters
 
-    // 유효성 검사 실패 메시지 LiveData
-    private val _validationMessage = MutableLiveData<String?>()
-    val validationMessage: LiveData<String?> = _validationMessage
-
     // LiveData 옵저버에게 수동으로 변경 알림
     private fun <T> MutableLiveData<T>.notifyObserver() {
         this.value = this.value
-    }
-
-    // 메시지 초기화 (Activity가 소비했음을 알림)
-    fun clearValidationMessage() {
-        _validationMessage.value = null
     }
 
     // ------------------------------------------------------------------
@@ -85,15 +76,10 @@ class CounterViewModel : ViewModel() {
         newMaxValue: Int,
         newCustomSteps: List<Int>
     ) {
-        // 유효성 검사
-        val hasNegativeStep = newCustomSteps.any { it < 0 }
+        // 유효성 검사 (음수 방지)
         if (newDecrementStep < 1 || newIncrementStep < 1 ||
-            newMinValue < 0 || newMaxValue < 0 || hasNegativeStep
-        ) {
-            _validationMessage.value =
-                "설정 값은 음수일 수 없으며, 증감 값은 1 이상이어야 합니다."
-            return
-        }
+            newMinValue < 0 || newMaxValue < 0 || newCustomSteps.any { it < 0 }
+        ) return
 
         // 항목 갱신
         val itemToUpdate = _counters.value?.find { it.id == id }
