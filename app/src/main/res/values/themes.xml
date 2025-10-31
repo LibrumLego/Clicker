@@ -14,16 +14,57 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <!-- ✅ 명시적 NoActionBar 테마 -->
-    <style name="Theme.Clicker.NoActionBar" parent="Theme.Clicker" />
+    <!-- 명시적 NoActionBar 테마 -->
+    <style name="Theme.Clicker.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- 브랜드 컬러 -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
 
-    <!-- ✅ Splash Screen -->
+        <!-- ⚫ 광고 대비: 상태바 & 배경을 기본적으로 어둡게 유지 -->
+        <item name="android:statusBarColor">@android:color/black</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
+
+        <!-- ⚫ 광고 Activity용 배경 (AdActivity에서 흰색 플래시 방지) -->
+        <item name="android:windowBackground">@android:color/black</item>
+
+        <!-- ⚫ 다크모드 강제 방지 -->
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
+    </style>
+
+    <!-- ✅ MainActivity 전용: 완전 투명 상태바 -->
+    <style name="Theme.Clicker.Transparent" parent="Theme.Clicker.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- 상단 Gradient가 어두우므로 흰색 아이콘 유지 -->
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
+    </style>
+
+    <!-- ✅ SettingsActivity 전용: 배경 #E0E0E0 -->
+    <style name="Theme.Clicker.Settings" parent="Theme.Clicker.NoActionBar">
+        <item name="android:statusBarColor">#E0E0E0</item>
+        <item name="android:navigationBarColor">#E0E0E0</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+    </style>
+
+    <!-- ✅ NumberZoomActivity 전용: 흰색 배경 -->
+    <style name="Theme.Clicker.White" parent="Theme.Clicker.NoActionBar">
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+    </style>
+
+
+    <!-- Splash Screen -->
     <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@drawable/splash_activity</item>
     </style>
 
-    <!-- ✅ 팝업 입력창 스타일 -->
+    <!-- 팝업 입력창 스타일 -->
     <style name="PopupInputStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">48dp</item>

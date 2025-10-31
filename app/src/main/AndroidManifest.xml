@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.clicker">
 
-    <!-- ✅ 네트워크 및 진동 권한 -->
+    <!-- 네트워크 및 진동 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -21,12 +21,12 @@
         tools:targetApi="31"
         android:usesCleartextTraffic="true">
 
-        <!-- ✅ AdMob 앱 ID (테스트용) -->
+        <!-- AdMob 앱 ID (테스트용) -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
 
-        <!-- ✅ Splash 화면 -->
+        <!-- Splash 화면 -->
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashScreen"
@@ -37,25 +37,29 @@
             </intent-filter>
         </activity>
 
-        <!-- ✅ 메인 액티비티 -->
+        <!-- MainActivity : 투명 상태바 -->
         <activity
             android:name=".MainActivity"
+            android:theme="@style/Theme.Clicker.Transparent"
             android:exported="true" />
 
-        <!-- ✅ 설정 액티비티 -->
+        <!-- SettingsActivity : 배경 #E0E0E0 -->
         <activity
             android:name=".SettingsActivity"
+            android:theme="@style/Theme.Clicker.Settings"
             android:exported="false" />
 
-        <!-- ✅ 사용법 액티비티 -->
-        <activity
-            android:name=".HowToUseActivity" />
-
-        <!-- ✅ 숫자 확대/축소 액티비티 -->
+        <!-- NumberZoomActivity : 흰색 배경 -->
         <activity
             android:name=".NumberZoomActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Clicker.NoActionBar" />
+            android:theme="@style/Theme.Clicker.White"
+            android:exported="false" />
+
+        <!-- HowToUseActivity : 흰색 배경 -->
+        <activity
+            android:name=".HowToUseActivity"
+            android:theme="@style/Theme.Clicker.White" />
 
     </application>
 </manifest>
+
