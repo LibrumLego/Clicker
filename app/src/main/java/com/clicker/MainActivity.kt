@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // ------------------------------------------------------------------
-    // 확률(%)로 광고 표시
+    // 확률로 광고 표시
     // ------------------------------------------------------------------
     private fun maybeShowAd(probability: Int) {
         if ((1..100).random() <= probability && mInterstitialAd != null) {
