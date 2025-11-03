@@ -4,26 +4,33 @@ plugins {
 }
 
 android {
-    namespace = "com.clicker"
-    compileSdk = 34
+    // ✅ namespace와 applicationId 둘 다 'com.woodangtanglabclicker'로 통일
+    namespace = "com.woodangtanglabclicker"
+
+    compileSdk = 35   // ✅ 최신 SDK로 수정
 
     defaultConfig {
-        applicationId = "com.clicker"
+        applicationId = "com.woodangtanglabclicker" // ✅ Play Store용 고유 ID
         minSdk = 21
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = 35
+        versionCode = 2
+        versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            // ✅ 릴리스 최적화 및 가독화 파일 자동 생성
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            // 내부 테스트 시 난독화 끔
+            isMinifyEnabled = false
         }
     }
 

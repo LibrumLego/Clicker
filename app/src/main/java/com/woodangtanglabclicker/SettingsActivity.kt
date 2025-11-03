@@ -1,4 +1,4 @@
-package com.clicker
+package com.woodangtanglabclicker
 
 import android.content.Intent
 import android.os.Bundle

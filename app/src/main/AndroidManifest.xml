@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.clicker">
+    package="com.woodangtanglabclicker">
 
-    <!-- z네트워크 및 진동 권한 -->
+    <!-- 네트워크 및 진동 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.woodangtanglabclicker.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -28,7 +28,7 @@
 
         <!-- Splash 화면 -->
         <activity
-            android:name=".SplashActivity"
+            android:name="com.woodangtanglabclicker.SplashActivity"
             android:theme="@style/SplashScreen"
             android:exported="true">
             <intent-filter>
@@ -39,27 +39,26 @@
 
         <!-- MainActivity : 투명 상태바 -->
         <activity
-            android:name=".MainActivity"
+            android:name="com.woodangtanglabclicker.MainActivity"
             android:theme="@style/Theme.Clicker.Transparent"
             android:exported="true" />
 
         <!-- SettingsActivity : 배경 #E0E0E0 -->
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.woodangtanglabclicker.SettingsActivity"
             android:theme="@style/Theme.Clicker.Settings"
             android:exported="false" />
 
         <!-- NumberZoomActivity : 흰색 배경 -->
         <activity
-            android:name=".NumberZoomActivity"
+            android:name="com.woodangtanglabclicker.NumberZoomActivity"
             android:theme="@style/Theme.Clicker.White"
             android:exported="false" />
 
         <!-- HowToUseActivity : 흰색 배경 -->
         <activity
-            android:name=".HowToUseActivity"
+            android:name="com.woodangtanglabclicker.HowToUseActivity"
             android:theme="@style/Theme.Clicker.White" />
 
     </application>
 </manifest>
-

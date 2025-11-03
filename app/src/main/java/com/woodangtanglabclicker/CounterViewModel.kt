@@ -1,4 +1,4 @@
-package com.clicker
+package com.woodangtanglabclicker
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
