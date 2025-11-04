@@ -150,6 +150,24 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#D3D3D3" />
+
+        <!-- 개인정보 처리방침 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_privacy_policy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="개인정보 처리방침"
+            android:textColor="@color/black"
+            android:gravity="left|center_vertical"
+            android:padding="16dp"
+            android:textAllCaps="false"
+            app:cornerRadius="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#D3D3D3" />
     </LinearLayout>
 
     <!-- 앱 버전 -->

@@ -8,6 +8,7 @@ import androidx.core.net.toUri
 import androidx.core.content.edit
 import androidx.appcompat.widget.SwitchCompat
 
+
 // AdMob
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -53,6 +54,14 @@ class SettingsActivity : AppCompatActivity() {
                 )
                 startActivity(intent)
             }
+        }
+
+        // ✅ 개인정보처리방침 버튼
+        val privacyButton: MaterialButton = findViewById(R.id.button_privacy_policy)
+        privacyButton.setOnClickListener {
+            val url = "https://cute-burst-24b.notion.site/Clicker-2a0fb9e35b7880fdb094d1b71be1a443"
+            val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+            startActivity(intent)
         }
 
         // 진동 설정 스위치
