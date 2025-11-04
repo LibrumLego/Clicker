@@ -9,6 +9,13 @@
     android:background="@android:color/white"
     tools:context=".SettingsActivity">
 
+    <!-- 상태바 영역 -->
+    <View
+        android:id="@+id/statusBarSpacer"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="#E0E0E0" />
+
     <!-- 메인 컨텐츠 영역 -->
     <LinearLayout
         android:layout_width="match_parent"

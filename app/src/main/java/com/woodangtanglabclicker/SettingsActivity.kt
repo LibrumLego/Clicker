@@ -35,7 +35,7 @@ class SettingsActivity : AppCompatActivity() {
         // SharedPreferences (앱 설정 저장)
         val prefs = getSharedPreferences(prefsName, MODE_PRIVATE)
 
-        // 🔘 사용 방법 버튼
+        // 사용 방법 버튼
         val howToUseButton: MaterialButton = findViewById(R.id.button_how_to_use)
         howToUseButton.setOnClickListener {
             startActivity(Intent(this, HowToUseActivity::class.java))
@@ -56,7 +56,7 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        // ✅ 개인정보처리방침 버튼
+        // 개인정보처리방침 버튼
         val privacyButton: MaterialButton = findViewById(R.id.button_privacy_policy)
         privacyButton.setOnClickListener {
             val url = "https://cute-burst-24b.notion.site/Clicker-2a0fb9e35b7880fdb094d1b71be1a443"
