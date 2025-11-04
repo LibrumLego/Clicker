@@ -13,7 +13,7 @@ android {
         applicationId = "com.woodangtanglabclicker" // ✅ Play Store용 고유 ID
         minSdk = 21
         targetSdk = 35
-        versionCode = 2
+        versionCode = 4
         versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
